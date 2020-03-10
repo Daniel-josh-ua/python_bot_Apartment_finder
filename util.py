@@ -52,9 +52,9 @@ def find_points_of_interest(geotag, location):
     area_found = False
     area = ""
     min_dist = None
-    near_essen = False
-    essen_dist = "N/A"
-    essen = ""
+    near_bahnhof = False
+    bahnhof_dist = "N/A"
+    bahnhof = ""
     # Look to see if the listing is in any of the neighborhood boxes we defined.
     for a, coords in settings.BOXES.items():
         if in_box(geotag, coords):
@@ -65,8 +65,8 @@ def find_points_of_interest(geotag, location):
     for station, coords in settings.TRANSIT_STATIONS.items():
         dist = coord_distance(coords[0], coords[1], geotag[0], geotag[1])
         if (min_dist is None or dist < min_dist) and dist < settings.MAX_TRANSIT_DIST:
-            essen = station
-            near_essen = True
+            bahnhof = station
+            near_bahnhof = True
 
         if (min_dist is None or dist < min_dist):
             essen_dist = dist
@@ -81,7 +81,7 @@ def find_points_of_interest(geotag, location):
     return {
         "area_found": area_found,
         "area": area,
-        "near_essen": near_essen,
-        "essen_dist": essen_dist,
-        "essen": essen
+        "near_bahnhof": near_bahnhof,
+        "bahnhof_dist": bahnhof_dist,
+        "bahnhof": bahnhof
     }
